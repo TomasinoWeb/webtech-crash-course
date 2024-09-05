@@ -3,6 +3,7 @@ module.exports = {
     'airbnb-base',
     'next/core-web-vitals',
     'plugin:prettier/recommended',
+    'plugin:tailwindcss/recommended',
   ],
   rules: {
     'prettier/prettier': [

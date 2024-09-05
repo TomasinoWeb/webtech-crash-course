@@ -1,5 +1,6 @@
-import { useRouter } from "next/router";
-import Layout from "../../layouts/layout";
+import { useRouter } from 'next/router';
+
+import Layout from '../../layouts/layout';
 
 export default function EditTag() {
   const router = useRouter();

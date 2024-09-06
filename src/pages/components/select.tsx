@@ -9,7 +9,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 
 const Select: React.FC<SelectProps> = ({
   name,
-  options,
+  options = [],
   value,
   onChange,
   className,

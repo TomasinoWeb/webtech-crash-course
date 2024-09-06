@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss';
 
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,15 +10,7 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      sans: [
-        'Lexend',
-        'system-ui',
-        'sans-serif',
-        'Apple Color Emoji',
-        'Segoe UI Emoji',
-        'Segoe UI Symbol',
-        'Noto Color Emoji',
-      ],
+      sans: ['Lexend', ...defaultTheme.fontFamily.sans],
     },
     extend: {},
   },

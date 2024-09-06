@@ -63,6 +63,7 @@ module.exports = {
         'react/jsx-no-bind': 'off',
         'no-console': 'off',
         'no-nested-ternary': 'off',
+        'react/button-has-type': 'off',
       },
     },
   ],

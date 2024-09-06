@@ -1,33 +1,22 @@
-import { Plus } from 'lucide-react';
-import Link from 'next/link';
-
-import Button from '../button';
+import type { ReactNode } from 'react';
 
 interface HeaderProps {
   title: string;
   subtitle: string;
-  href: string;
-  buttonText: string;
+  buttonSide: ReactNode;
 }
 
-export default function Header({
-  title,
-  subtitle,
-  href,
-  buttonText,
-}: HeaderProps) {
+export default function Header({ title, subtitle, buttonSide }: HeaderProps) {
   return (
     <div className="flex w-full flex-col items-center gap-4 px-8 md:flex-row md:items-start md:justify-between md:px-0">
-      <div className="flex flex-col gap-2">
+      <div className="flex w-full flex-1 flex-col gap-2">
         <div className="text-2xl font-medium md:text-5xl">{title}</div>
         <div className="text-base md:text-3xl">{subtitle}</div>
       </div>
 
-      <Link href={href} className="w-full md:w-fit">
-        <Button className="h-fit w-full">
-          <Plus /> {buttonText}
-        </Button>
-      </Link>
+      <div className="flex w-full flex-col gap-4 md:w-fit md:flex-row">
+        {buttonSide}
+      </div>
     </div>
   );
 }

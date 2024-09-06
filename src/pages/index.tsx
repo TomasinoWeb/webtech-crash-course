@@ -1,3 +1,7 @@
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
+
+import Button from '@/components/button';
 import Header from '@/components/dashboard/header';
 import TasksSection from '@/components/dashboard/tasks-section';
 import { useTask } from '@/hooks/useTask';
@@ -17,8 +21,13 @@ export default function Home() {
         <Header
           title="Good Morning, Totoro"
           subtitle={`Today, ${today}`}
-          href="/task/add"
-          buttonText="Add Task"
+          buttonSide={
+            <Link href="/task/add" className="w-full md:w-fit">
+              <Button className="h-fit w-full">
+                <Plus /> Add Task
+              </Button>
+            </Link>
+          }
         />
         <TasksSection filteredTask={filteredTask} loading={loading} />
       </div>

@@ -4,43 +4,34 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
 import Button from '@/components/button';
-import type { AddEditTaskInputs } from '@/components/forms/add-edit-task';
-import AddEditTaskForm from '@/components/forms/add-edit-task';
-import type { Tag } from '@/const/tags';
-import type { Task, TaskStatus } from '@/const/tasks';
-import { fetchTags } from '@/lib/tagService';
-import { fetchTask } from '@/lib/tasksService';
+import type { AddEditTagInputs } from '@/components/forms/add-edit-tag';
+import AddEditTagForm from '@/components/forms/add-edit-tag';
+import type { Tag, TagColors } from '@/const/tags';
+import { fetchTag } from '@/lib/tagService';
 import Layout from '@/pages/layouts/layout';
 
-interface EditTaskProps {
-  task: Task;
-  tags: Tag[];
+interface EditTagProps {
+  tag: Tag;
 }
 
-export default function EditTask({ task, tags }: EditTaskProps) {
+export default function EditTag({ tag }: EditTagProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit } = useForm<AddEditTaskInputs>({
+  const { register, handleSubmit } = useForm<AddEditTagInputs>({
     defaultValues: {
-      name: task?.name ?? '',
-      description: task?.description ?? '',
-      tag: task?.tag.name ?? '',
-      status: task?.status ?? '',
-      due: task?.dueDate
-        ? new Date(task.dueDate).toISOString().split('T')[0]
-        : '',
+      name: tag?.name ?? '',
+      description: tag?.description ?? '',
+      color: tag?.color ?? '',
     },
   });
 
-  const onSubmit: SubmitHandler<AddEditTaskInputs> = async (data) => {
-    const editedTask: Task = {
-      ...task,
+  const onSubmit: SubmitHandler<AddEditTagInputs> = async (data) => {
+    const newTag: Tag = {
+      ...tag,
       name: data.name,
       description: data.description,
-      tag: tags.find((tag) => tag.name === data.tag) || tags[0],
-      status: data.status as TaskStatus,
-      dueDate: data.due,
+      color: data.color as TagColors,
     };
 
     try {
@@ -49,12 +40,13 @@ export default function EditTask({ task, tags }: EditTaskProps) {
       await new Promise((resolve) => {
         setTimeout(resolve, 2000);
       });
+
       console.log(
         JSON.stringify(
           {
             status: 'success',
-            message: 'Task edited successfully',
-            task: editedTask,
+            message: 'Tag edited successfully',
+            tag: newTag,
           },
           null,
           2,
@@ -64,9 +56,10 @@ export default function EditTask({ task, tags }: EditTaskProps) {
       console.error(err);
     } finally {
       setLoading(false);
-      router.push('/');
+      router.push(`/tags/${newTag.id}`);
     }
   };
+
   const handleBack = () => {
     router.back();
   };
@@ -75,10 +68,8 @@ export default function EditTask({ task, tags }: EditTaskProps) {
     <Layout>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-full flex-col gap-10">
-          <div className="text-2xl font-medium md:text-5xl">
-            Edit Task #{task?.id}
-          </div>
-          <AddEditTaskForm tags={tags} register={register} />
+          <div className="text-2xl font-medium md:text-5xl">Add Task</div>
+          <AddEditTagForm register={register} />
           <div className="flex gap-4 self-end">
             <Button type="button" variant="secondary" onClick={handleBack}>
               Cancel
@@ -98,18 +89,17 @@ export async function getServerSideProps({
 }: {
   params: { id: string };
 }) {
-  const task = await fetchTask(Number(params.id));
-  const tags = await fetchTags();
+  const tag = await fetchTag(Number(params.id));
 
-  if (!task || !tags) {
+  if (tag === null) {
     return {
       notFound: true,
     };
   }
+
   return {
     props: {
-      task,
-      tags,
+      tag,
     },
   };
 }

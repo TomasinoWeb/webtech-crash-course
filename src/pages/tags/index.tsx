@@ -1,3 +1,7 @@
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
+
+import Button from '@/components/button';
 import Card from '@/components/card';
 import Header from '@/components/dashboard/header';
 import { useTag } from '@/hooks/useTag';
@@ -15,13 +19,23 @@ export default function Tags() {
         <Header
           title="Good Morning, Totoro"
           subtitle={`Today, ${today}`}
-          href="/tag/add"
-          buttonText="Add Tag"
+          buttonSide={
+            <Link href="/tags/add" className="w-full md:w-fit">
+              <Button className="h-fit w-full">
+                <Plus /> Add Tag
+              </Button>
+            </Link>
+          }
         />
         <div className="grid grid-cols-4 gap-4 rounded-xl bg-slate-200 p-6 dark:bg-slate-800 ">
           {tags.map((tag) => (
             <div key={tag.id} className="h-full p-2">
-              <Card title={tag.name} task={tag.description} color={tag.color} />
+              <Card
+                id={tag.id}
+                title={tag.name}
+                task={tag.description}
+                color={tag.color}
+              />
             </div>
           ))}
         </div>

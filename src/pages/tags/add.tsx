@@ -4,40 +4,30 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
 import Button from '@/components/button';
-import type { AddEditTaskInputs } from '@/components/forms/add-edit-task';
-import AddEditTaskForm from '@/components/forms/add-edit-task';
-import type { Tag } from '@/const/tags';
-import type { Task, TaskStatus } from '@/const/tasks';
-import { fetchTags } from '@/lib/tagService';
+import type { AddEditTagInputs } from '@/components/forms/add-edit-tag';
+import AddEditTagForm from '@/components/forms/add-edit-tag';
+import type { Tag, TagColors } from '@/const/tags';
 
 import Layout from '../layouts/layout';
 
-interface AddTaskProps {
-  tags: Tag[];
-}
-
-export default function AddTask({ tags }: AddTaskProps) {
+export default function AddTag() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit } = useForm<AddEditTaskInputs>({
+  const { register, handleSubmit } = useForm<AddEditTagInputs>({
     defaultValues: {
       name: '',
       description: '',
-      tag: '',
-      status: '',
-      due: null,
+      color: undefined,
     },
   });
 
-  const onSubmit: SubmitHandler<AddEditTaskInputs> = async (data) => {
-    const newTask: Task = {
+  const onSubmit: SubmitHandler<AddEditTagInputs> = async (data) => {
+    const newTag: Tag = {
       id: Math.floor(Math.random() * 10000),
       name: data.name,
       description: data.description,
-      tag: tags.find((tag) => tag.name === data.tag) || tags[0],
-      status: data.status as TaskStatus,
-      dueDate: data.due,
+      color: data.color as TagColors,
     };
 
     try {
@@ -51,8 +41,8 @@ export default function AddTask({ tags }: AddTaskProps) {
         JSON.stringify(
           {
             status: 'success',
-            message: 'Task added successfully',
-            task: newTask,
+            message: 'Tag added successfully',
+            tag: newTag,
           },
           null,
           2,
@@ -62,7 +52,7 @@ export default function AddTask({ tags }: AddTaskProps) {
       console.error(err);
     } finally {
       setLoading(false);
-      router.push('/');
+      router.push('/tags');
     }
   };
 
@@ -75,7 +65,7 @@ export default function AddTask({ tags }: AddTaskProps) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-full flex-col gap-10">
           <div className="text-2xl font-medium md:text-5xl">Add Task</div>
-          <AddEditTaskForm tags={tags} register={register} />
+          <AddEditTagForm register={register} />
           <div className="flex gap-4 self-end">
             <Button type="button" variant="secondary" onClick={handleBack}>
               Cancel
@@ -89,13 +79,3 @@ export default function AddTask({ tags }: AddTaskProps) {
     </Layout>
   );
 }
-
-export const getServerSideProps = async () => {
-  const tags = await fetchTags();
-
-  return {
-    props: {
-      tags,
-    },
-  };
-};

@@ -9,7 +9,7 @@ export default function Label({ htmlFor, children }: LabelProps) {
   return (
     <label
       htmlFor={htmlFor}
-      className="text-sm text-slate-900 md:text-base dark:text-slate-100"
+      className="text-sm text-slate-900 dark:text-slate-100 md:text-base"
     >
       {children}
     </label>

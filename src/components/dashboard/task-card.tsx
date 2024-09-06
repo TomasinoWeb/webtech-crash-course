@@ -1,12 +1,10 @@
 import dayjs from 'dayjs';
 import { Calendar, Trash } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { Task } from '@/const/tasks';
-import { useTask } from '@/hooks/useTask';
 
 import Badge from '../badge';
 import Button from '../button';
@@ -17,14 +15,34 @@ interface TaskCardProps {
 }
 
 export default function TaskCard({ task }: TaskCardProps) {
-  const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
   const formattedDate = dayjs(task.dueDate).format('MMM D');
-  const { deleteTask, loading } = useTask();
 
   const handleDelete = async () => {
-    await deleteTask(task.id);
-    router.push('/');
+    try {
+      setLoading(true);
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+
+      console.log(
+        JSON.stringify(
+          {
+            status: 'success',
+            message: 'Task deleted successfully',
+            taskId: task.id,
+          },
+          null,
+          2,
+        ),
+      );
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,7 +55,7 @@ export default function TaskCard({ task }: TaskCardProps) {
       <div className="flex flex-1 gap-5">
         <input
           type="checkbox"
-          className="size-5 flex-initial cursor-pointer rounded-sm bg-slate-300 accent-slate-700 md:size-8 dark:accent-slate-200"
+          className="size-5 flex-initial cursor-pointer rounded-sm bg-slate-300 accent-slate-700 dark:accent-slate-200 md:size-8"
           defaultChecked={checked}
           onChange={() => setChecked(!checked)}
         />
@@ -50,7 +68,7 @@ export default function TaskCard({ task }: TaskCardProps) {
                 <ProgressBadge status={task.status} />
               </div>
             </div>
-            <div className="text-xs text-slate-400 md:text-sm dark:text-slate-500">
+            <div className="text-xs text-slate-400 dark:text-slate-500 md:text-sm">
               {task.description}
             </div>
           </div>
@@ -58,7 +76,7 @@ export default function TaskCard({ task }: TaskCardProps) {
       </div>
 
       <div className="flex items-center gap-6 self-end md:self-start">
-        <div className="flex h-fit flex-initial items-center gap-2.5 rounded-md bg-slate-200 px-4 py-2 text-sm text-slate-700 md:text-base dark:bg-slate-800 dark:text-slate-200">
+        <div className="flex h-fit flex-initial items-center gap-2.5 rounded-md bg-slate-200 px-4 py-2 text-sm text-slate-700 dark:bg-slate-800 dark:text-slate-200 md:text-base">
           <Calendar className="size-4 md:size-6" /> {formattedDate}
         </div>
         <Button

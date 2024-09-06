@@ -20,7 +20,7 @@ export default function AddTask({ tags }: AddTaskProps) {
   const router = useRouter();
   const { addTask, loading } = useTask();
 
-  const { register, handleSubmit } = useForm<AddEditTaskInputs>({
+  const { register, handleSubmit, formState } = useForm<AddEditTaskInputs>({
     defaultValues: {
       name: '',
       description: '',
@@ -59,7 +59,7 @@ export default function AddTask({ tags }: AddTaskProps) {
             <Button variant="secondary" onClick={handleBack}>
               Cancel
             </Button>
-            <Button type="submit" isLoading={loading}>
+            <Button type="submit" isLoading={loading && formState.isSubmitting}>
               Save
             </Button>
           </div>

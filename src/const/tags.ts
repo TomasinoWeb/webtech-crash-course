@@ -1,9 +1,11 @@
 export type Tag = {
   id: number;
   name: string;
-  color: 'yellow' | 'pink' | 'lime' | 'cyan' | 'purple';
+  color: TagColors;
   description: string;
 };
+
+export type TagColors = 'yellow' | 'pink' | 'lime' | 'cyan' | 'purple';
 
 export const sampleTags: Tag[] = [
   {

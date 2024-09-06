@@ -37,7 +37,7 @@ export default function Navbar() {
           <List className="mr-2" /> List
         </div>
       ),
-      href: '/tags/list',
+      href: '/',
     },
     {
       name: (
@@ -76,14 +76,17 @@ export default function Navbar() {
   }, []);
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure
+      as="nav"
+      className="border-2 border-slate-200 bg-slate-100 text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+    >
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
                 <div className="flex shrink-0 items-center">
-                  <h2 className="p-5 text-xl font-bold text-white">Totodo</h2>
+                  <h2 className="p-5 text-2xl font-bold md:text-4xl">Totodo</h2>
                 </div>
               </div>
               <div className="hidden sm:ml-auto sm:flex sm:items-center">
@@ -97,8 +100,8 @@ export default function Navbar() {
                       }
                       className={classNames(
                         currentPath === item.href
-                          ? 'bg-gray-900 text-white'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          ? 'bg-gray-900 text-slate-100'
+                          : 'hover:bg-gray-700 hover:text-slate-100',
                         'flex items-center rounded-md px-3 py-2 text-sm font-medium',
                       )}
                     >
@@ -108,7 +111,7 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
-                <DisclosureButton className="inline-flex items-center justify-center p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <DisclosureButton className="inline-flex items-center justify-center p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <X className="size-6" />
@@ -129,8 +132,8 @@ export default function Navbar() {
                   aria-current={currentPath === item.href ? 'page' : undefined}
                   className={classNames(
                     currentPath === item.href
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      ? 'bg-gray-900 text-slate-100'
+                      : 'hover:bg-gray-700 hover:text-white',
                     'block rounded-md px-3 py-2 text-base font-medium',
                   )}
                 >

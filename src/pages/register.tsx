@@ -1,6 +1,9 @@
-import Button from './components/button';
-import Input from './components/input';
-import Label from './components/label';
+import Link from 'next/link';
+
+import Button from '@/components/button';
+import Input from '@/components/input';
+import Label from '@/components/label';
+
 import LayoutSign from './layouts/layoutsign';
 
 export default function Register() {
@@ -32,7 +35,9 @@ export default function Register() {
           <div className="pt-14 text-center">
             <Label htmlFor="input">
               Already have an account?{' '}
-              <span className="font-bold underline">Login</span>
+              <Link href="/login" className="font-bold underline">
+                Login
+              </Link>
             </Label>
           </div>
         </div>

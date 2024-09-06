@@ -1,6 +1,9 @@
-import Button from './components/button';
-import Input from './components/input';
-import Label from './components/label';
+import Link from 'next/link';
+
+import Button from '@/components/button';
+import Input from '@/components/input';
+import Label from '@/components/label';
+
 import LayoutSign from './layouts/layoutsign';
 
 export default function Login() {
@@ -32,7 +35,9 @@ export default function Login() {
           <div className="pt-14 text-center">
             <Label htmlFor="input">
               Don’t have an account?{' '}
-              <span className="font-bold underline">Signup</span>
+              <Link href="/register" className="font-bold underline">
+                Signup
+              </Link>
             </Label>
           </div>
         </div>

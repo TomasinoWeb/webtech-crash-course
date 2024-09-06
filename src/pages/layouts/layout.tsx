@@ -11,7 +11,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
       <Navbar />
       <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-        <main className="flex grow justify-center px-4 py-10 sm:px-6 md:px-8 md:py-20 lg:px-12 xl:px-16">
+        <main className="flex grow justify-center px-4 py-8 sm:px-6 md:px-8 md:py-12 lg:px-12 xl:px-16">
           <div className="w-full max-w-screen-xl">{children}</div>
         </main>
       </div>

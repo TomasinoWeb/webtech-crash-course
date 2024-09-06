@@ -62,7 +62,7 @@ export default function AddTask({ tags }: AddTaskProps) {
       console.error(err);
     } finally {
       setLoading(false);
-      router.push('/');
+      router.back();
     }
   };
 

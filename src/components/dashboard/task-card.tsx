@@ -59,7 +59,7 @@ export default function TaskCard({ task }: TaskCardProps) {
           defaultChecked={checked}
           onChange={() => setChecked(!checked)}
         />
-        <Link href={`/task/edit/${task.id}`}>
+        <Link href={`/tasks/edit/${task.id}`}>
           <div className="flex flex-1 flex-col gap-x-2 gap-y-4">
             <div className="flex flex-col gap-4 md:flex-row">
               <div className="text-xl font-medium md:text-2xl">{task.name}</div>

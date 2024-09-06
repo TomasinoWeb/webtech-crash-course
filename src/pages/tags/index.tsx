@@ -2,7 +2,7 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 
 import Button from '@/components/button';
-import Card from '@/components/card';
+import CardsSection from '@/components/dashboard/cards-section';
 import Header from '@/components/dashboard/header';
 import { useTag } from '@/hooks/useTag';
 import { formatDate } from '@/utils/formatDate';
@@ -10,7 +10,7 @@ import { formatDate } from '@/utils/formatDate';
 import Layout from '../layouts/layout';
 
 export default function Tags() {
-  const { tags } = useTag();
+  const { tags, loading } = useTag();
   const today = formatDate(new Date());
 
   return (
@@ -27,18 +27,7 @@ export default function Tags() {
             </Link>
           }
         />
-        <div className="grid grid-cols-4 gap-4 rounded-xl bg-slate-200 p-8 dark:bg-slate-800 max-sm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
-          {tags.map((tag) => (
-            <div key={tag.id} className="h-full p-2">
-              <Card
-                id={tag.id}
-                title={tag.name}
-                task={tag.description}
-                color={tag.color}
-              />
-            </div>
-          ))}
-        </div>
+        <CardsSection tags={tags} loading={loading} />
       </div>
     </Layout>
   );

@@ -22,7 +22,7 @@ export default function Home() {
           title="Good Morning, Totoro"
           subtitle={`Today, ${today}`}
           buttonSide={
-            <Link href="/task/add" className="w-full md:w-fit">
+            <Link href="/tasks/add" className="w-full md:w-fit">
               <Button className="h-fit w-full">
                 <Plus /> Add Task
               </Button>

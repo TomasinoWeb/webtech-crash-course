@@ -34,7 +34,7 @@ export default function Navbar() {
           <List className="mr-2" /> List
         </div>
       ),
-      href: '/',
+      href: '/tasks',
     },
     {
       name: (
@@ -78,7 +78,9 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <h2 className="p-5 text-2xl font-bold md:text-4xl">Totodo</h2>
+              <Link href="/">
+                <h2 className="p-5 text-2xl font-bold md:text-4xl">Totodo</h2>
+              </Link>
             </div>
           </div>
           <div className="hidden sm:ml-auto sm:flex sm:items-center">

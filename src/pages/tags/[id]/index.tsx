@@ -31,7 +31,7 @@ export default function DashboardTagTaskList({ tag }: DashboardTagTasksProps) {
                   <Pencil /> Edit Tag
                 </Button>
               </Link>
-              <Link href="/task/add">
+              <Link href="/tasks/add">
                 <Button className="h-fit w-full">
                   <Plus /> Add Task
                 </Button>

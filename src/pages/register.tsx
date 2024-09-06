@@ -4,11 +4,11 @@ import Button from '@/components/button';
 import Input from '@/components/input';
 import Label from '@/components/label';
 
-import LayoutSign from './layouts/layoutsign';
+import LayoutAuth from './layouts/layout-auth';
 
 export default function Register() {
   return (
-    <LayoutSign>
+    <LayoutAuth>
       <div className="flex flex-col items-center justify-center overflow-hidden">
         <div className="w-9/12">
           <h1 className="py-10 text-center text-4xl text-slate-950  dark:text-slate-50">
@@ -42,6 +42,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-    </LayoutSign>
+    </LayoutAuth>
   );
 }

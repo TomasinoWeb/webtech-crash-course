@@ -1,4 +1,4 @@
-function LayoutSign({ children }: { children: React.ReactNode }) {
+function LayoutAuth({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <div className="flex min-h-screen flex-col bg-slate-50 py-10 dark:bg-slate-950">
@@ -10,4 +10,4 @@ function LayoutSign({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default LayoutSign;
+export default LayoutAuth;

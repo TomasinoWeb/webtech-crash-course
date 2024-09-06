@@ -68,9 +68,9 @@ const Card: React.FC<CardProps> = ({ title, task, index }) => {
 
   return (
     <div
-      className={`w-72 rounded-xl shadow-lg ${colorClasses[colorVariant]} p-4`}
+      className={`w-full rounded-xl shadow-lg  ${colorClasses[colorVariant]} m-2 p-4`}
     >
-      <div className="p-4">
+      <div className="w-full p-4">
         <h2 className="mb-2 text-xl font-semibold text-slate-100">{title}</h2>
         <p className="mb-4 text-slate-400">{task}</p>
       </div>

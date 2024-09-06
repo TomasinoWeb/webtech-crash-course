@@ -19,9 +19,9 @@ const cardData = [
 export default function Tags() {
   return (
     <Layout>
-      <div className=" m-10  flex  flex-wrap items-center justify-center gap-4 rounded-xl bg-cyan-900 py-10">
+      <div className="m-10 flex flex-wrap items-center justify-center gap-4 rounded-xl bg-cyan-900 py-10 ">
         {cardData.map((card) => (
-          <div key={card.id} className="w-full p-2 sm:w-1/2 md:w-1/3 lg:w-1/5">
+          <div key={card.id} className="p-2 md:w-1/3 lg:w-1/5">
             <Card title={card.title} task={card.task} index={card.id} />
           </div>
         ))}

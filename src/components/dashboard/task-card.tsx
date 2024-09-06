@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
 import { Calendar, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { Task } from '@/const/tasks';
+import { useTask } from '@/hooks/useTask';
 
 import Badge from '../badge';
 import Button from '../button';
@@ -15,8 +17,15 @@ interface TaskCardProps {
 }
 
 export default function TaskCard({ task }: TaskCardProps) {
+  const router = useRouter();
   const [checked, setChecked] = useState(false);
   const formattedDate = dayjs(task.dueDate).format('MMM D');
+  const { deleteTask, loading } = useTask();
+
+  const handleDelete = async () => {
+    await deleteTask(task.id);
+    router.push('/');
+  };
 
   return (
     <div
@@ -52,7 +61,12 @@ export default function TaskCard({ task }: TaskCardProps) {
         <div className="flex h-fit flex-initial items-center gap-2.5 rounded-md bg-slate-200 px-4 py-2 text-sm text-slate-700 md:text-base dark:bg-slate-800 dark:text-slate-200">
           <Calendar className="size-4 md:size-6" /> {formattedDate}
         </div>
-        <Button variant="destructive" className="hidden group-hover:inline">
+        <Button
+          variant="destructive"
+          className="hidden group-hover:inline"
+          onClick={handleDelete}
+          isLoading={loading}
+        >
           <Trash width={17} height={21} />
         </Button>
       </div>

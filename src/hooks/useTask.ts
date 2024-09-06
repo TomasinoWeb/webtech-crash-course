@@ -30,28 +30,97 @@ export const useTask = () => {
     fetchTasks();
   }, []);
 
-  const addTask = () => {
-    // const newTask: Task = {
-    //   id: tasks.length + 1,
-    //   title,
-    //   completed: false,
-    // };
-    // setTasks([...tasks, newTask]);
-    // console.log('Task added:', newTask);
+  const addTask = async (newTask: Task) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+
+      console.log(
+        JSON.stringify(
+          {
+            status: 'success',
+            message: 'Task added successfully',
+            task: newTask,
+          },
+          null,
+          2,
+        ),
+      );
+    } catch (err) {
+      setError((err as Error).message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const editTask = () => {
-    // const updatedTasks = tasks.map((task) =>
-    //   task.id === id ? { ...task, title: updatedTitle } : task,
-    // );
-    // setTasks(updatedTasks);
-    // console.log(`Task with ID ${id} edited to:`, updatedTitle);
+  const editTask = async (newTask: Task) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === newTask.id ? { ...task, ...newTask } : task,
+        ),
+      );
+
+      console.log(
+        JSON.stringify(
+          {
+            status: 'success',
+            message: 'Task edited successfully',
+            task: newTask,
+          },
+          null,
+          2,
+        ),
+      );
+    } catch (err) {
+      setError((err as Error).message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const deleteTask = (id: number) => {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
-    console.log(`Task with ID ${id} deleted`);
+  const deleteTask = async (id: number) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+
+      console.log(
+        JSON.stringify(
+          {
+            status: 'success',
+            message: 'Task deleted successfully',
+            taskId: id,
+          },
+          null,
+          2,
+        ),
+      );
+    } catch (err) {
+      setError((err as Error).message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {

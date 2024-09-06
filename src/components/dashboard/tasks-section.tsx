@@ -1,4 +1,4 @@
-import type { FilteredTasks } from '@/utils/taskUtils';
+import type { FilteredTasks } from '@/utils/filterTaskByDate';
 
 import TaskList from './task-list';
 import TaskLoader from './task-loader';

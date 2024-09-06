@@ -7,7 +7,7 @@ export type Task = {
   name: string;
   description: string;
   status: TaskStatus;
-  dueDate: Date;
+  dueDate: Date | string | null;
   tag: Tag;
 };
 

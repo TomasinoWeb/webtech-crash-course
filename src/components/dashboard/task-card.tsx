@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { Calendar, Trash } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -20,7 +21,7 @@ export default function TaskCard({ task }: TaskCardProps) {
   return (
     <div
       className={twMerge(
-        'flex flex-col md:flex-row justify-between gap-6 rounded-xl border border-slate-200 bg-slate-100 px-9 py-6 transition duration-700 hover:opacity-100 cursor-pointer group dark:bg-slate-900 dark:border-slate-800',
+        'flex flex-col md:flex-row justify-between gap-6 rounded-xl border border-slate-200 bg-slate-100 px-9 py-6 transition duration-700 hover:opacity-100 group dark:bg-slate-900 dark:border-slate-800',
         checked && 'opacity-40',
       )}
     >
@@ -31,18 +32,20 @@ export default function TaskCard({ task }: TaskCardProps) {
           defaultChecked={checked}
           onChange={() => setChecked(!checked)}
         />
-        <div className="flex flex-1 flex-col gap-x-2 gap-y-4">
-          <div className="flex flex-col gap-4 md:flex-row">
-            <div className="text-xl font-medium md:text-2xl">{task.name}</div>
-            <div className="flex flex-wrap gap-2.5">
-              <Badge color={task.tag.color} text={task.tag.name} />
-              <ProgressBadge status={task.status} />
+        <Link href={`/task/edit/${task.id}`}>
+          <div className="flex flex-1 flex-col gap-x-2 gap-y-4">
+            <div className="flex flex-col gap-4 md:flex-row">
+              <div className="text-xl font-medium md:text-2xl">{task.name}</div>
+              <div className="flex flex-wrap gap-2.5">
+                <Badge color={task.tag.color} text={task.tag.name} />
+                <ProgressBadge status={task.status} />
+              </div>
+            </div>
+            <div className="text-xs text-slate-400 md:text-sm dark:text-slate-500">
+              {task.description}
             </div>
           </div>
-          <div className="text-xs text-slate-400 md:text-sm dark:text-slate-500">
-            {task.description}
-          </div>
-        </div>
+        </Link>
       </div>
 
       <div className="flex items-center gap-6 self-end md:self-start">

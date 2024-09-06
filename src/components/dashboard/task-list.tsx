@@ -18,7 +18,7 @@ const TaskList = ({ title, tasks }: TaskListProps) => {
         <div className="font-semibold uppercase dark:text-slate-400">
           {title}
         </div>
-        <div className="bg-slate-300 px-1.5 text-center text-sm font-semibold dark:bg-slate-600">
+        <div className="rounded-sm bg-slate-300 px-1.5 text-center text-sm font-semibold dark:bg-slate-600">
           {tasks.length}
         </div>
       </div>

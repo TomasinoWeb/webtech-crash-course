@@ -72,9 +72,9 @@ export default function Navbar() {
               {/* Navigation links for desktop */}
               <div className="hidden sm:ml-auto sm:flex sm:items-center">
                 <div className="flex space-x-4">
-                  {navigationItems.map((item) => (
+                  {navigationItems.map((item, index) => (
                     <a
-                      key={item.href}
+                      key={index}
                       href={item.href}
                       aria-current={
                         currentPath === item.href ? 'page' : undefined
@@ -109,9 +109,9 @@ export default function Navbar() {
           {/* Mobile Menu */}
           <DisclosurePanel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigationItems.map((item) => (
+              {navigationItems.map((item, index) => (
                 <DisclosureButton
-                  key={item.href}
+                  key={index}
                   as="a"
                   href={item.href}
                   aria-current={currentPath === item.href ? 'page' : undefined}

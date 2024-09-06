@@ -24,7 +24,9 @@ const buttonStyles = cva(
   },
 );
 
-interface ButtonProps extends VariantProps<typeof buttonStyles> {
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonStyles> {
   children: React.ReactNode;
   className?: string;
   isLoading?: boolean;

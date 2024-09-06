@@ -64,6 +64,7 @@ module.exports = {
         'no-console': 'off',
         'no-nested-ternary': 'off',
         'react/button-has-type': 'off',
+        'react/no-array-index-key': 'off',
       },
     },
   ],

@@ -1,7 +1,7 @@
 export type Tag = {
-  name: String;
+  name: string;
   color: 'yellow' | 'pink' | 'lime' | 'cyan' | 'purple';
-  description: String;
+  description: string;
 };
 
 export const sampleTags: Tag[] = [

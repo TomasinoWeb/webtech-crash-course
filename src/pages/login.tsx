@@ -1,14 +1,16 @@
 import Button from './components/button';
 import Input from './components/input';
 import Label from './components/label';
-import Layout from './layouts/layout';
+import LayoutSign from './layouts/layoutsign';
 
 export default function Login() {
   return (
-    <Layout>
+    <LayoutSign>
       <div className="flex flex-col items-center justify-center overflow-hidden">
         <div className="w-9/12">
-          <h1 className="text-center text-4xl">Welcome!</h1>
+          <h1 className="py-10 text-center text-4xl text-slate-950  dark:text-slate-50">
+            Welcome!
+          </h1>
           <div className="mt-4 flex w-full flex-col">
             <Label htmlFor="input">Username</Label>
             <Input type="text" placeholder="totodo123" className="w-full" />
@@ -35,6 +37,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </Layout>
+    </LayoutSign>
   );
 }

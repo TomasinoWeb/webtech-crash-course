@@ -3,15 +3,16 @@ import Link from 'next/link';
 
 import Button from '@/components/button';
 import Header from '@/components/dashboard/header';
+import TaskLoader from '@/components/dashboard/task-loader';
 import TasksSection from '@/components/dashboard/tasks-section';
-import { useTask } from '@/hooks/useTask';
+import { useTasks } from '@/hooks/useTasks';
 import { filterTasksByDueDate } from '@/utils/filterTaskByDate';
 import { formatDate } from '@/utils/formatDate';
 
 import Layout from './layouts/layout';
 
 export default function Home() {
-  const { tasks, loading } = useTask();
+  const { tasks, loading } = useTasks();
   const filteredTask = filterTasksByDueDate(tasks);
   const today = formatDate(new Date());
 
@@ -29,7 +30,12 @@ export default function Home() {
             </Link>
           }
         />
-        <TasksSection filteredTask={filteredTask} loading={loading} />
+
+        {loading ? (
+          <TaskLoader />
+        ) : (
+          <TasksSection filteredTask={filteredTask} />
+        )}
       </div>
     </Layout>
   );

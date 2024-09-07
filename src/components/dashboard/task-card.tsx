@@ -4,20 +4,20 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { Task } from '@/const/tasks';
+import type { TagDTO, TaskDTO } from '@/hooks/dto';
 
 import Badge from '../badge';
 import Button from '../button';
 import ProgressBadge from './progress-badge';
 
 interface TaskCardProps {
-  task: Task;
+  task: TaskDTO & { tag: TagDTO };
 }
 
 export default function TaskCard({ task }: TaskCardProps) {
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const formattedDate = dayjs(task.dueDate).format('MMM D');
+  const formattedDate = dayjs(task.due_date).format('MMM D');
 
   const handleDelete = async () => {
     try {
@@ -32,7 +32,7 @@ export default function TaskCard({ task }: TaskCardProps) {
           {
             status: 'success',
             message: 'Task deleted successfully',
-            taskId: task.id,
+            task_uuid: task.uuid,
           },
           null,
           2,
@@ -59,7 +59,7 @@ export default function TaskCard({ task }: TaskCardProps) {
           defaultChecked={checked}
           onChange={() => setChecked(!checked)}
         />
-        <Link href={`/tasks/edit/${task.id}`}>
+        <Link href={`/tasks/edit/${task.uuid}`}>
           <div className="flex flex-1 flex-col gap-x-2 gap-y-4">
             <div className="flex flex-col gap-4 md:flex-row">
               <div className="text-xl font-medium md:text-2xl">{task.name}</div>

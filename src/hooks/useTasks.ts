@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import type { Task } from '@/const/tasks';
 import { sampleTasks } from '@/const/tasks';
 
-export const useTask = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+import type { TagDTO, TaskDTO } from './dto';
+
+export const useTasks = () => {
+  const [tasks, setTasks] = useState<(TaskDTO & { tag: TagDTO })[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

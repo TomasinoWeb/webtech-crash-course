@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { TagColors } from '@/const/tags';
+import type { TagColors } from '@/hooks/dto';
 
 const colorClasses = {
   yellow:
@@ -15,15 +15,15 @@ const colorClasses = {
 };
 
 interface CardProps {
-  id: number;
+  uuid: string;
   title: string;
   task: string;
   color: TagColors;
 }
 
-const Card: React.FC<CardProps> = ({ id, title, task, color }) => {
+const Card: React.FC<CardProps> = ({ uuid, title, task, color }) => {
   return (
-    <Link href={`/tags/${id}`}>
+    <Link href={`/tags/${uuid}`}>
       <div
         className={twMerge(
           'size-full rounded-xl border shadow-lg m-2 p-4',

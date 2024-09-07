@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  options: string[];
+  options: { key: string; value: string }[];
   placeholder: string;
 }
 
@@ -18,16 +18,16 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         defaultValue=""
         {...props}
       >
-        <option value="" disabled>
+        <option value="" disabled hidden>
           {placeholder}
         </option>
         {options.map((option) => (
           <option
-            key={option}
-            value={option}
+            key={option.key}
+            value={option.key}
             className="text-sm capitalize md:text-base"
           >
-            {option}
+            {option.value}
           </option>
         ))}
       </select>

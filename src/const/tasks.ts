@@ -1,120 +1,135 @@
 import dayjs from 'dayjs';
 
-import { sampleTags, type Tag } from './tags';
+import type { TagDTO, TaskDTO } from '@/hooks/dto';
 
-export type Task = {
-  id: number;
-  name: string;
-  description: string;
-  status: TaskStatus;
-  dueDate: Date | string | null;
-  tag: Tag;
-};
-
-export type TaskStatus = 'Not Started' | 'In Progress' | 'Completed';
+import { sampleTags } from './tags';
 
 const today = dayjs();
-const yesterday = today.subtract(1, 'day').toDate();
-const tomorrow = today.add(1, 'day').toDate();
-const threeDaysLater = today.add(3, 'day').toDate();
-const fourDaysLater = today.add(4, 'day').toDate();
-const fiveDaysLater = today.add(5, 'day').toDate();
+const yesterday = today.subtract(1, 'day').valueOf();
+const tomorrow = today.add(1, 'day').valueOf();
+const threeDaysLater = today.add(3, 'day').valueOf();
+const fourDaysLater = today.add(4, 'day').valueOf();
+const fiveDaysLater = today.add(5, 'day').valueOf();
 
-export const sampleTasks: Task[] = [
+export const sampleTasks: (TaskDTO & { tag: TagDTO })[] = [
   {
-    id: 1,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d3fa',
     name: 'Finish Math Assignment',
     description: 'Complete exercises from chapter 5',
-    status: 'Not Started',
-    dueDate: yesterday,
+    status: 'not_yet_started',
+    due_date: yesterday,
     tag: sampleTags[0],
+    tag_uuid: sampleTags[0].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 2,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d3fb',
     name: 'Read Personal Development Book',
     description: 'Read "Atomic Habits" for 30 minutes',
-    status: 'In Progress',
-    dueDate: today.toDate(),
+    status: 'in_progress',
+    due_date: today.valueOf(),
     tag: sampleTags[1],
+    tag_uuid: sampleTags[1].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 3,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d3fc',
     name: 'Submit Project Proposal',
     description: 'Prepare and submit project proposal to the team',
-    status: 'Completed',
-    dueDate: tomorrow,
+    status: 'completed',
+    due_date: tomorrow,
     tag: sampleTags[2],
+    tag_uuid: sampleTags[2].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 4,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d3fd',
     name: 'Plan Weekend Getaway',
     description: 'Organize activities for the upcoming family trip',
-    status: 'Not Started',
-    dueDate: threeDaysLater,
+    status: 'not_yet_started',
+    due_date: threeDaysLater,
     tag: sampleTags[1],
+    tag_uuid: sampleTags[1].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 5,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d3fe',
     name: 'Doctor Appointment',
     description: 'Yearly check-up with Dr. Smith',
-    status: 'In Progress',
-    dueDate: fourDaysLater,
+    status: 'in_progress',
+    due_date: fourDaysLater,
     tag: sampleTags[4],
+    tag_uuid: sampleTags[4].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 6,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d3ff',
     name: 'Complete Health & Safety Training',
     description: 'Finish mandatory training session',
-    status: 'Completed',
-    dueDate: fiveDaysLater,
+    status: 'completed',
+    due_date: fiveDaysLater,
     tag: sampleTags[2],
+    tag_uuid: sampleTags[2].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 7,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d4aa',
     name: 'Physics Homework',
     description: 'Solve problems in thermodynamics chapter',
-    status: 'Not Started',
-    dueDate: yesterday,
+    status: 'not_yet_started',
+    due_date: yesterday,
     tag: sampleTags[0],
+    tag_uuid: sampleTags[0].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 8,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d4ab',
     name: 'Grocery Shopping',
     description: 'Buy groceries for the week',
-    status: 'In Progress',
-    dueDate: today.toDate(),
+    status: 'in_progress',
+    due_date: today.valueOf(),
     tag: sampleTags[3],
+    tag_uuid: sampleTags[3].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 9,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d4ac',
     name: 'Prepare for Client Presentation',
     description: 'Finalize slides for client presentation on Thursday',
-    status: 'Completed',
-    dueDate: tomorrow,
+    status: 'completed',
+    due_date: tomorrow,
     tag: sampleTags[2],
+    tag_uuid: sampleTags[2].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 10,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d4ad',
     name: 'Renew Gym Membership',
     description: 'Renew annual gym membership online',
-    status: 'Not Started',
-    dueDate: threeDaysLater,
+    status: 'not_yet_started',
+    due_date: threeDaysLater,
     tag: sampleTags[4],
+    tag_uuid: sampleTags[4].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 11,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d4ae',
     name: 'Prepare Thesis Outline',
     description: 'Create a detailed outline for your thesis',
-    status: 'In Progress',
-    dueDate: fourDaysLater,
+    status: 'in_progress',
+    due_date: fourDaysLater,
     tag: sampleTags[0],
+    tag_uuid: sampleTags[0].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 12,
+    uuid: 'ca15978d-a1ca-4119-a39e-26da7c36d4af',
     name: 'Meditation',
     description: 'Daily 15-minute meditation practice',
-    status: 'Completed',
-    dueDate: fiveDaysLater,
+    status: 'completed',
+    due_date: fiveDaysLater,
     tag: sampleTags[1],
+    tag_uuid: sampleTags[1].uuid,
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
 ];

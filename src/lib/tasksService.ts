@@ -1,14 +1,11 @@
-import type { Task } from '@/const/tasks';
 import { sampleTasks } from '@/const/tasks';
+import type { TaskDTO } from '@/hooks/dto';
 
-export const fetchTask = async (id: number): Promise<Task | undefined> => {
+export const fetchTask = async (uuid: string): Promise<TaskDTO | undefined> => {
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
   });
 
-  const task = sampleTasks.find((sampleTask) => sampleTask.id === id);
-  if (task && task.dueDate) {
-    task.dueDate = new Date(task.dueDate).toISOString();
-  }
+  const task = sampleTasks.find((sampleTask) => sampleTask.uuid === uuid);
   return task;
 };

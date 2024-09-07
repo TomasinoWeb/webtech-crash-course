@@ -1,4 +1,4 @@
-import type { TaskStatus } from '@/const/tasks';
+import type { TaskStatus } from '@/hooks/dto';
 
 import Badge from '../badge';
 
@@ -10,13 +10,13 @@ export default function ProgressBadge({ status }: ProgressBadgeProps) {
   let progressColor: 'grey' | 'blue' | 'green';
 
   switch (status) {
-    case 'Not Started':
+    case 'not_yet_started':
       progressColor = 'grey';
       break;
-    case 'In Progress':
+    case 'in_progress':
       progressColor = 'blue';
       break;
-    case 'Completed':
+    case 'completed':
       progressColor = 'green';
       break;
     default:

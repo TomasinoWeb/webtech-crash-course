@@ -3,21 +3,29 @@ import type { UseFormRegister } from 'react-hook-form';
 import Input from '@/components/input';
 import Label from '@/components/label';
 import Select from '@/components/select';
-import type { Tag } from '@/const/tags';
+import type { TagDTO, TaskStatus } from '@/hooks/dto';
 
 import TextArea from '../text-area';
 
 export interface AddEditTaskInputs {
   name: string;
   description: string;
-  tag: string;
+  status: TaskStatus;
+  due_date: number;
+  tag_uuid: string;
+}
+
+export interface AddEditTaskFormInput {
+  name: string;
+  description: string;
+  tag_uuid: string;
   status: string;
-  due: Date | string | null;
+  due_date: string;
 }
 
 interface AddEditTaskFormProps {
-  tags: Tag[];
-  register: UseFormRegister<AddEditTaskInputs>;
+  tags: TagDTO[];
+  register: UseFormRegister<AddEditTaskFormInput>;
 }
 
 export default function AddEditTaskForm({
@@ -45,8 +53,8 @@ export default function AddEditTaskForm({
           <Select
             id="tag"
             placeholder="Select Tag"
-            options={tags.map((tag) => tag.name)}
-            {...register('tag')}
+            options={tags.map((tag) => ({ key: tag.uuid, value: tag.name }))}
+            {...register('tag_uuid')}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -54,7 +62,11 @@ export default function AddEditTaskForm({
           <Select
             id="status"
             placeholder="Select Status"
-            options={['Not Started', 'In Progress', 'Completed']}
+            options={[
+              { key: 'not_yet_started', value: 'Not started' },
+              { key: 'in_progress', value: 'In Progress' },
+              { key: 'compelted', value: 'Completed' },
+            ]}
             {...register('status')}
           />
         </div>
@@ -64,7 +76,7 @@ export default function AddEditTaskForm({
             id="due"
             type="date"
             placeholder="Pick Date"
-            {...register('due')}
+            {...register('due_date')}
           />
         </div>
       </div>

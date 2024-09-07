@@ -25,23 +25,23 @@ export default function LoginRegisterForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mt-4 flex w-full flex-col">
-        <Label htmlFor="username">Username</Label>
-        <Input
-          type="text"
-          placeholder="totodo123"
-          className="w-full"
-          {...register('username')}
-        />
-      </div>
-      <div className="mt-8 flex w-full flex-col">
-        <Label htmlFor="input">Password</Label>
-        <Input
-          type="text"
-          placeholder="at least 8 characters"
-          className="w-full"
-          {...register('password')}
-        />
+      <div className="flex flex-1 flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            placeholder="Username"
+            {...register('username', { required: true })}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            placeholder="Password"
+            {...register('password', { required: true })}
+          />
+        </div>
       </div>
 
       <Button

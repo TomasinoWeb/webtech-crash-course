@@ -50,8 +50,14 @@ export default function AddEditTaskForm({
       <div className="flex w-full flex-col gap-x-11 gap-y-4 md:flex-row">
         <div className="flex flex-1 flex-col gap-x-7 gap-y-4">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Task Name</Label>
-            <Input id="name" placeholder="Task Name" {...register('name')} />
+            <Label htmlFor="name" required>
+              Task Name
+            </Label>
+            <Input
+              id="name"
+              placeholder="Task Name"
+              {...register('name', { required: true })}
+            />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="description">Description</Label>
@@ -63,16 +69,20 @@ export default function AddEditTaskForm({
         </div>
         <div className="flex flex-1 flex-col gap-x-7 gap-y-4">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="tag">Tag</Label>
+            <Label htmlFor="tag" required>
+              Tag
+            </Label>
             <Select
               id="tag"
               placeholder="Select Tag"
               options={tags.map((tag) => ({ key: tag.uuid, value: tag.name }))}
-              {...register('tag_uuid')}
+              {...register('tag_uuid', { required: true })}
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="status">Status</Label>
+            <Label htmlFor="status" required>
+              Status
+            </Label>
             <Select
               id="status"
               placeholder="Select Status"
@@ -81,7 +91,7 @@ export default function AddEditTaskForm({
                 { key: 'in_progress', value: 'In Progress' },
                 { key: 'compelted', value: 'Completed' },
               ]}
-              {...register('status')}
+              {...register('status', { required: true })}
             />
           </div>
           <div className="flex flex-col gap-2">

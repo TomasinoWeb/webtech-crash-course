@@ -47,8 +47,14 @@ export default function AddEditTagForm({ tag, onSubmit }: AddEditTagFormProps) {
       <div className="flex w-full flex-col gap-x-11 gap-y-4 md:flex-row">
         <div className="flex flex-1 flex-col gap-x-7 gap-y-4">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Task Name</Label>
-            <Input id="name" placeholder="Task Name" {...register('name')} />
+            <Label htmlFor="name" required>
+              Task Name
+            </Label>
+            <Input
+              id="name"
+              placeholder="Task Name"
+              {...register('name', { required: true })}
+            />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="description">Description</Label>
@@ -60,12 +66,14 @@ export default function AddEditTagForm({ tag, onSubmit }: AddEditTagFormProps) {
         </div>
         <div className="flex flex-1 flex-col gap-x-7 gap-y-4">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="tag">Tag</Label>
+            <Label htmlFor="color" required>
+              Color
+            </Label>
             <Select
-              id="tag"
+              id="color"
               placeholder="Select Color"
               options={colorOptions}
-              {...register('color')}
+              {...register('color', { required: true })}
             />
           </div>
         </div>

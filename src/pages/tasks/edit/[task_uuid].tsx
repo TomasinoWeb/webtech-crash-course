@@ -1,13 +1,7 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
 
-import Button from '@/components/button';
-import type {
-  AddEditTaskFormInput,
-  AddEditTaskInputs,
-} from '@/components/forms/add-edit-task';
+import type { AddEditTaskInputs } from '@/components/forms/add-edit-task';
 import AddEditTaskForm from '@/components/forms/add-edit-task';
 import SpinnerPage from '@/components/Spinner';
 import type { TagDTO, TaskDTO, TaskStatus } from '@/hooks/dto';
@@ -22,19 +16,8 @@ interface EditTaskFormProps {
 
 function EditTaskForm({ task, tags }: EditTaskFormProps) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit } = useForm<AddEditTaskFormInput>({
-    defaultValues: {
-      name: task.name,
-      description: task.description,
-      tag_uuid: task.tag_uuid,
-      status: task.status,
-      due_date: new Date(task.due_date).toISOString().split('T')[0],
-    },
-  });
-
-  const onSubmit: SubmitHandler<AddEditTaskFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<AddEditTaskInputs> = async (data) => {
     const editedTask: AddEditTaskInputs = {
       ...task,
       name: data.name,
@@ -45,8 +28,6 @@ function EditTaskForm({ task, tags }: EditTaskFormProps) {
     };
 
     try {
-      setLoading(true);
-
       await new Promise((resolve) => {
         setTimeout(resolve, 2000);
       });
@@ -64,31 +45,17 @@ function EditTaskForm({ task, tags }: EditTaskFormProps) {
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
       router.push('/');
     }
   };
-  const handleBack = () => {
-    router.back();
-  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex w-full flex-col gap-10">
-        <div className="text-2xl font-medium md:text-5xl">
-          Edit Task {task?.name}
-        </div>
-        <AddEditTaskForm tags={tags} register={register} />
-        <div className="flex gap-4 self-end">
-          <Button type="button" variant="secondary" onClick={handleBack}>
-            Cancel
-          </Button>
-          <Button type="submit" isLoading={loading}>
-            Save
-          </Button>
-        </div>
+    <div className="flex w-full flex-col gap-10">
+      <div className="text-2xl font-medium md:text-5xl">
+        Edit Task {task.name}
       </div>
-    </form>
+      <AddEditTaskForm task={task} tags={tags} onSubmit={onSubmit} />
+    </div>
   );
 }
 

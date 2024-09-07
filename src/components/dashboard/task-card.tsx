@@ -81,7 +81,7 @@ export default function TaskCard({ task }: TaskCardProps) {
         </div>
         <Button
           variant="destructive"
-          className="hidden group-hover:inline"
+          className="hidden group-hover:flex"
           onClick={handleDelete}
           isLoading={loading}
         >

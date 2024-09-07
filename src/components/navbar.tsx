@@ -1,6 +1,8 @@
-import { LayoutGrid, List, LogOut, Menu, Moon, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+
+import { navigationItems } from './navbar/nav-items';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -8,66 +10,7 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const [currentPath, setCurrentPath] = useState('');
-  const [theme, setTheme] = useState('light');
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control mobile menu
-
-  const toggleTheme = () => {
-    console.log('Toggle theme function called');
-    const newTheme = theme === 'dark' ? 'light' : 'dark'; // Fix toggle logic
-    setTheme(newTheme);
-    document.documentElement.classList.remove('light', 'dark'); // Remove both classes
-    document.documentElement.classList.add(newTheme); // Add the new theme class
-    localStorage.setItem('theme', newTheme);
-  };
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light'; // Fix typo
-    setTheme(savedTheme);
-    document.documentElement.classList.remove('light', 'dark'); // Remove both classes
-    document.documentElement.classList.add(savedTheme); // Add the saved theme class
-  }, []);
-
-  const navigationItems = [
-    {
-      name: (
-        <div className="flex items-center">
-          <List className="mr-2" /> List
-        </div>
-      ),
-      href: '/tasks',
-    },
-    {
-      name: (
-        <div className="flex items-center">
-          <LayoutGrid className="mr-2" />
-          Tags
-        </div>
-      ),
-      href: '/tags',
-    },
-    {
-      name: (
-        <div
-          className="flex cursor-pointer items-center rounded-md border border-gray-300 p-2"
-          onClick={() => toggleTheme()}
-        >
-          <Moon />
-          <p className="ml-2 sm:hidden">Darkmode</p>
-        </div>
-      ),
-      href: '#',
-    },
-    {
-      name: (
-        <div className="flex items-center rounded-md border border-gray-300 p-2">
-          <LogOut className="mr-2" />
-          Logout
-        </div>
-      ),
-      href: '#',
-    },
-  ];
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
     setCurrentPath(window.location.pathname);
   }, []);

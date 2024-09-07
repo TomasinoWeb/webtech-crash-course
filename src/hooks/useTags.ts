@@ -15,7 +15,7 @@ export const useTags = () => {
       setError(null);
 
       await new Promise((resolve) => {
-        setTimeout(resolve, 1000);
+        setTimeout(resolve, 300);
       });
 
       setTags(sampleTags);

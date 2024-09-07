@@ -34,7 +34,7 @@ const Card: React.FC<CardProps> = ({ uuid, title, task, color }) => {
           <h2 className="mb-2 text-xl font-semibold text-slate-900 dark:text-slate-50">
             {title}
           </h2>
-          <p className="mb-4 text-slate-500 dark:text-slate-400">{task}</p>
+          <p className="mb-4 text-slate-500 dark:text-slate-300">{task}</p>
         </div>
       </div>
     </Link>

@@ -24,7 +24,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {options.map((option) => (
           <option
             key={option.key}
-            value={option.value}
+            value={option.key}
             className="text-sm capitalize md:text-base"
           >
             {option.value}

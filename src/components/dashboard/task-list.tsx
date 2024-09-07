@@ -1,10 +1,12 @@
 import React from 'react';
 
+import type { TagDTO, TaskDTO } from '@/hooks/dto';
+
 import TaskCard from './task-card';
 
 interface TaskListProps {
   title: string;
-  tasks: any[];
+  tasks: (TaskDTO & { tag: TagDTO })[];
 }
 
 const TaskList = ({ title, tasks }: TaskListProps) => {
@@ -23,7 +25,7 @@ const TaskList = ({ title, tasks }: TaskListProps) => {
         </div>
       </div>
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} />
+        <TaskCard key={task.uuid} task={task} />
       ))}
     </div>
   );

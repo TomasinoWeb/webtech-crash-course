@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { sampleTags, type Tag } from '@/const/tags';
+import { sampleTags } from '@/const/tags';
 
-export const useTag = () => {
-  const [tags, setTags] = useState<Tag[]>([]);
+import type { TagDTO } from './dto';
+
+export const useTags = () => {
+  const [tags, setTags] = useState<TagDTO[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,8 +31,8 @@ export const useTag = () => {
     fetchTags();
   }, []);
 
-  const fetchTag = (id: number) => {
-    return tags.find((tag) => tag.id === id);
+  const fetchTag = (uuid: string) => {
+    return tags.find((tag) => tag.uuid === uuid)!;
   };
 
   return {

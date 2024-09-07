@@ -1,41 +1,39 @@
-export type Tag = {
-  id: number;
-  name: string;
-  color: TagColors;
-  description: string;
-};
+import type { TagDTO } from '@/hooks/dto';
 
-export type TagColors = 'yellow' | 'pink' | 'lime' | 'cyan' | 'purple';
-
-export const sampleTags: Tag[] = [
+export const sampleTags: TagDTO[] = [
   {
-    id: 1,
+    uuid: '0eae2e69-9755-4b77-ad6c-5cd40404d41a',
     name: 'Academic',
     color: 'yellow',
     description: 'Things to do for school',
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 2,
+    uuid: '0eae2e69-9755-4b77-ad6c-5cd40404d41b',
     name: 'Personal',
     color: 'pink',
     description: 'Things to do for yourself',
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 3,
+    uuid: '0eae2e69-9755-4b77-ad6c-5cd40404d41c',
     name: 'Work',
     color: 'lime',
     description: 'Things to do for work',
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 4,
+    uuid: '0eae2e69-9755-4b77-ad6c-5cd40404d41d',
     name: 'Miscellaneous',
     color: 'cyan',
     description: 'Things to do for everything else',
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
   {
-    id: 5,
+    uuid: '0eae2e69-9755-4b77-ad6c-5cd40404d41e',
     name: 'Health',
     color: 'purple',
     description: 'Things to do for health',
+    user_uuid: '82ddec70-449a-4083-b965-c23f316861be',
   },
 ];

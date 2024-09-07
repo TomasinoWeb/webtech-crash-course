@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -6,15 +6,16 @@ import { useForm } from 'react-hook-form';
 import Button from '@/components/button';
 import type { AddEditTagInputs } from '@/components/forms/add-edit-tag';
 import AddEditTagForm from '@/components/forms/add-edit-tag';
-import type { Tag, TagColors } from '@/const/tags';
-import { fetchTag } from '@/lib/tagService';
+import SpinnerPage from '@/components/Spinner';
+import type { TagDTO } from '@/hooks/dto';
+import { useTags } from '@/hooks/useTags';
 import Layout from '@/pages/layouts/layout';
 
 interface EditTagProps {
-  tag: Tag;
+  tag: TagDTO;
 }
 
-export default function EditTag({ tag }: EditTagProps) {
+function EditTag({ tag }: EditTagProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -27,11 +28,11 @@ export default function EditTag({ tag }: EditTagProps) {
   });
 
   const onSubmit: SubmitHandler<AddEditTagInputs> = async (data) => {
-    const newTag: Tag = {
+    const newTag: TagDTO = {
       ...tag,
       name: data.name,
       description: data.description,
-      color: data.color as TagColors,
+      color: data.color as TagDTO['color'],
     };
 
     try {
@@ -56,7 +57,7 @@ export default function EditTag({ tag }: EditTagProps) {
       console.error(err);
     } finally {
       setLoading(false);
-      router.push(`/tags/${newTag.id}`);
+      router.push(`/tags/${newTag.uuid}`);
     }
   };
 
@@ -65,41 +66,35 @@ export default function EditTag({ tag }: EditTagProps) {
   };
 
   return (
-    <Layout>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex w-full flex-col gap-10">
-          <div className="text-2xl font-medium md:text-5xl">Add Task</div>
-          <AddEditTagForm register={register} />
-          <div className="flex gap-4 self-end">
-            <Button type="button" variant="secondary" onClick={handleBack}>
-              Cancel
-            </Button>
-            <Button type="submit" isLoading={loading}>
-              Save
-            </Button>
-          </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex w-full flex-col gap-10">
+        <div className="text-2xl font-medium md:text-5xl">Add Task</div>
+        <AddEditTagForm register={register} />
+        <div className="flex gap-4 self-end">
+          <Button type="button" variant="secondary" onClick={handleBack}>
+            Cancel
+          </Button>
+          <Button type="submit" isLoading={loading}>
+            Save
+          </Button>
         </div>
-      </form>
-    </Layout>
+      </div>
+    </form>
   );
 }
 
-export async function getServerSideProps({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const tag = await fetchTag(Number(params.id));
+export default function EditTagPage() {
+  const router = useRouter();
+  const { tag_uuid } = router.query;
+  const tagLoader = useTags();
 
-  if (tag === null) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      tag,
-    },
-  };
+  return (
+    <Layout>
+      {tagLoader.loading ? (
+        <SpinnerPage />
+      ) : (
+        <EditTag tag={tagLoader.fetchTag(tag_uuid as string)} />
+      )}
+    </Layout>
+  );
 }

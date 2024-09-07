@@ -4,13 +4,13 @@ import Link from 'next/link';
 import Button from '@/components/button';
 import CardsSection from '@/components/dashboard/cards-section';
 import Header from '@/components/dashboard/header';
-import { useTag } from '@/hooks/useTag';
+import { useTags } from '@/hooks/useTags';
 import { formatDate } from '@/utils/formatDate';
 
 import Layout from '../layouts/layout';
 
 export default function Tags() {
-  const { tags, loading } = useTag();
+  const { tags, loading } = useTags();
   const today = formatDate(new Date());
 
   return (

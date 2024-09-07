@@ -6,9 +6,15 @@ import { useForm } from 'react-hook-form';
 import Button from '@/components/button';
 import type { AddEditTagInputs } from '@/components/forms/add-edit-tag';
 import AddEditTagForm from '@/components/forms/add-edit-tag';
-import type { Tag, TagColors } from '@/const/tags';
+import type { TagColors } from '@/hooks/dto';
 
 import Layout from '../layouts/layout';
+
+type AddTagData = {
+  name: string;
+  description: string;
+  color: TagColors;
+};
 
 export default function AddTag() {
   const router = useRouter();
@@ -23,8 +29,7 @@ export default function AddTag() {
   });
 
   const onSubmit: SubmitHandler<AddEditTagInputs> = async (data) => {
-    const newTag: Tag = {
-      id: Math.floor(Math.random() * 10000),
+    const newTag: AddTagData = {
       name: data.name,
       description: data.description,
       color: data.color as TagColors,

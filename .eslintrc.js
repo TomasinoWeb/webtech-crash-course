@@ -65,6 +65,8 @@ module.exports = {
         'no-nested-ternary': 'off',
         'react/button-has-type': 'off',
         'react/no-array-index-key': 'off',
+        '@typescript-eslint/no-explicit-any': 'error',
+        '@typescript-eslint/naming-convention': 'off',
       },
     },
   ],

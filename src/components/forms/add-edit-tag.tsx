@@ -3,7 +3,7 @@ import type { UseFormRegister } from 'react-hook-form';
 import Input from '@/components/input';
 import Label from '@/components/label';
 import Select from '@/components/select';
-import type { TagColors } from '@/const/tags';
+import type { TagColors } from '@/hooks/dto';
 
 import TextArea from '../text-area';
 
@@ -18,12 +18,12 @@ interface AddEditTagFormProps {
 }
 
 export default function AddEditTagForm({ register }: AddEditTagFormProps) {
-  const colorOptions: TagColors[] = [
-    'yellow',
-    'pink',
-    'lime',
-    'cyan',
-    'purple',
+  const colorOptions: { key: TagColors; value: string }[] = [
+    { key: 'yellow', value: 'Yellow' },
+    { key: 'pink', value: 'Pink' },
+    { key: 'lime', value: 'Lime' },
+    { key: 'cyan', value: 'Cyan' },
+    { key: 'purple', value: 'Purple' },
   ];
 
   return (

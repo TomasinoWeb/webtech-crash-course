@@ -1,21 +1,12 @@
 import type { FilteredTasks } from '@/utils/filterTaskByDate';
 
 import TaskList from './task-list';
-import TaskLoader from './task-loader';
 
 interface TasksSectionProps {
   filteredTask: FilteredTasks;
-  loading: boolean;
 }
 
-export default function TasksSection({
-  filteredTask,
-  loading,
-}: TasksSectionProps) {
-  if (loading) {
-    return <TaskLoader />;
-  }
-
+export default function TasksSection({ filteredTask }: TasksSectionProps) {
   return (
     <div className="flex flex-col gap-9">
       <TaskList title="Overdue" tasks={filteredTask.overdue} />

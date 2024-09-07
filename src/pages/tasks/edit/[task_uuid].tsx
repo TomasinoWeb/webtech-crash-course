@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -10,31 +10,33 @@ import type {
 } from '@/components/forms/add-edit-task';
 import AddEditTaskForm from '@/components/forms/add-edit-task';
 import SpinnerPage from '@/components/Spinner';
-import type { TagDTO, TaskStatus } from '@/hooks/dto';
+import type { TagDTO, TaskDTO, TaskStatus } from '@/hooks/dto';
 import { useTags } from '@/hooks/useTags';
+import { useTasks } from '@/hooks/useTasks';
+import Layout from '@/pages/layouts/layout';
 
-import Layout from '../layouts/layout';
-
-interface AddTaskFormProps {
+interface EditTaskFormProps {
+  task: TaskDTO;
   tags: TagDTO[];
 }
 
-function AddTaskForm({ tags }: AddTaskFormProps) {
+function EditTaskForm({ task, tags }: EditTaskFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit } = useForm<AddEditTaskFormInput>({
     defaultValues: {
-      name: '',
-      description: '',
-      status: '',
-      tag_uuid: '',
-      due_date: new Date(Date.now()).toISOString().split('T')[0],
+      name: task.name,
+      description: task.description,
+      tag_uuid: task.tag_uuid,
+      status: task.status,
+      due_date: new Date(task.due_date).toISOString().split('T')[0],
     },
   });
 
   const onSubmit: SubmitHandler<AddEditTaskFormInput> = async (data) => {
-    const newTask: AddEditTaskInputs = {
+    const editedTask: AddEditTaskInputs = {
+      ...task,
       name: data.name,
       description: data.description,
       tag_uuid: data.tag_uuid,
@@ -48,13 +50,12 @@ function AddTaskForm({ tags }: AddTaskFormProps) {
       await new Promise((resolve) => {
         setTimeout(resolve, 2000);
       });
-
       console.log(
         JSON.stringify(
           {
             status: 'success',
-            message: 'Task added successfully',
-            task: newTask,
+            message: 'Task edited successfully',
+            task: editedTask,
           },
           null,
           2,
@@ -64,10 +65,9 @@ function AddTaskForm({ tags }: AddTaskFormProps) {
       console.error(err);
     } finally {
       setLoading(false);
-      router.back();
+      router.push('/');
     }
   };
-
   const handleBack = () => {
     router.back();
   };
@@ -75,7 +75,9 @@ function AddTaskForm({ tags }: AddTaskFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex w-full flex-col gap-10">
-        <div className="text-2xl font-medium md:text-5xl">Add Task</div>
+        <div className="text-2xl font-medium md:text-5xl">
+          Edit Task {task?.name}
+        </div>
         <AddEditTaskForm tags={tags} register={register} />
         <div className="flex gap-4 self-end">
           <Button type="button" variant="secondary" onClick={handleBack}>
@@ -90,15 +92,21 @@ function AddTaskForm({ tags }: AddTaskFormProps) {
   );
 }
 
-export default function AddTask() {
-  const tagLoader = useTags();
+export default function EditTask() {
+  const router = useRouter();
+  const { task_uuid } = router.query;
+  const taskLoader = useTasks();
+  const tagsLoader = useTags();
 
   return (
     <Layout>
-      {tagLoader.loading ? (
+      {taskLoader.loading || tagsLoader.loading ? (
         <SpinnerPage />
       ) : (
-        <AddTaskForm tags={tagLoader.tags} />
+        <EditTaskForm
+          task={taskLoader.tasks.find((task) => task.uuid === task_uuid)!}
+          tags={tagsLoader.tags}
+        />
       )}
     </Layout>
   );

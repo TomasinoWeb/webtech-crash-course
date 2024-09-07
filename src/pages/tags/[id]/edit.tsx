@@ -48,7 +48,9 @@ export default function EditTag({ tag }: EditTagProps) {
   return (
     <Layout>
       <div className="flex w-full flex-col gap-10">
-        <div className="text-2xl font-medium md:text-5xl">Add Task</div>
+        <div className="text-2xl font-medium md:text-5xl">
+          Edit Task #{tag.id}
+        </div>
         <AddEditTagForm tag={tag} onSubmit={onSubmit} />
       </div>
     </Layout>

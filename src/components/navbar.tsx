@@ -64,7 +64,7 @@ export default function Navbar() {
           Logout
         </div>
       ),
-      href: '#',
+      href: '/login',
     },
   ];
 

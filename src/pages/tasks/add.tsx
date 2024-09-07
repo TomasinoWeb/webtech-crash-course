@@ -1,9 +1,6 @@
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
 
-import Button from '@/components/button';
 import type { AddEditTaskInputs } from '@/components/forms/add-edit-task';
 import AddEditTaskForm from '@/components/forms/add-edit-task';
 import type { Tag } from '@/const/tags';
@@ -18,17 +15,6 @@ interface AddTaskProps {
 
 export default function AddTask({ tags }: AddTaskProps) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
-  const { register, handleSubmit } = useForm<AddEditTaskInputs>({
-    defaultValues: {
-      name: '',
-      description: '',
-      tag: '',
-      status: '',
-      due: null,
-    },
-  });
 
   const onSubmit: SubmitHandler<AddEditTaskInputs> = async (data) => {
     const newTask: Task = {
@@ -41,8 +27,6 @@ export default function AddTask({ tags }: AddTaskProps) {
     };
 
     try {
-      setLoading(true);
-
       await new Promise((resolve) => {
         setTimeout(resolve, 2000);
       });
@@ -61,31 +45,16 @@ export default function AddTask({ tags }: AddTaskProps) {
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
       router.back();
     }
   };
 
-  const handleBack = () => {
-    router.back();
-  };
-
   return (
     <Layout>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex w-full flex-col gap-10">
-          <div className="text-2xl font-medium md:text-5xl">Add Task</div>
-          <AddEditTaskForm tags={tags} register={register} />
-          <div className="flex gap-4 self-end">
-            <Button type="button" variant="secondary" onClick={handleBack}>
-              Cancel
-            </Button>
-            <Button type="submit" isLoading={loading}>
-              Save
-            </Button>
-          </div>
-        </div>
-      </form>
+      <div className="flex w-full flex-col gap-10">
+        <div className="text-2xl font-medium md:text-5xl">Add Task</div>
+        <AddEditTaskForm tags={tags} onSubmit={onSubmit} />
+      </div>
     </Layout>
   );
 }

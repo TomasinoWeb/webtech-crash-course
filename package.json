@@ -13,7 +13,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.5",
     "class-variance-authority": "^0.7.0",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.438.0",

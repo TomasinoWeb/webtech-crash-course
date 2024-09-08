@@ -38,6 +38,7 @@ export default function LoginRegisterForm({
           <Label htmlFor="password">Password</Label>
           <Input
             id="password"
+            type="password"
             placeholder="Password"
             {...register('password', { required: true })}
           />

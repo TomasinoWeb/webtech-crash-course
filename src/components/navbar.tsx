@@ -1,12 +1,9 @@
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import { navigationItems } from './navbar/nav-items';
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 
 export default function Navbar() {
   const [currentPath, setCurrentPath] = useState('');
@@ -32,12 +29,14 @@ export default function Navbar() {
                 <Link
                   key={index}
                   href={item.href}
-                  aria-current={currentPath === item.href ? 'page' : undefined}
-                  className={classNames(
-                    currentPath === item.href
+                  aria-current={
+                    currentPath.startsWith(item.href) ? 'page' : undefined
+                  }
+                  className={twMerge(
+                    'flex items-center rounded-md px-3 py-2 text-sm font-medium',
+                    currentPath.startsWith(item.href)
                       ? 'bg-gray-900 text-slate-100'
                       : 'hover:bg-gray-700 hover:text-white',
-                    'flex items-center rounded-md px-3 py-2 text-sm font-medium',
                   )}
                 >
                   {item.name}
@@ -68,12 +67,14 @@ export default function Navbar() {
               <Link
                 key={index}
                 href={item.href}
-                aria-current={currentPath === item.href ? 'page' : undefined}
-                className={classNames(
-                  currentPath === item.href
+                aria-current={
+                  currentPath.startsWith(item.href) ? 'page' : undefined
+                }
+                className={twMerge(
+                  'block rounded-md px-3 py-2 text-base font-medium',
+                  currentPath.startsWith(item.href)
                     ? 'bg-gray-900 text-slate-100'
                     : 'hover:bg-gray-700 hover:text-white',
-                  'block rounded-md px-3 py-2 text-base font-medium',
                 )}
               >
                 {item.name}

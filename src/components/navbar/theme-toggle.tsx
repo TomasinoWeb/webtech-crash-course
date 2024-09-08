@@ -35,7 +35,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       className="flex cursor-pointer items-center rounded-md border border-gray-300 p-2"
     >
-      {theme === 'light' ? <Moon /> : <Sun />}
+      {theme === 'dark' ? <Sun /> : <Moon />}
       <p className="ml-2 sm:hidden">
         {theme === 'light' ? 'Darkmode' : 'Lightmode'}
       </p>

@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { TagDTO, TaskDTO } from '@/hooks/dto';
+import { getProgressColor } from '@/utils/getProgressColor';
 
 import Badge from '../badge';
 import Button from '../button';
-import ProgressBadge from './progress-badge';
 
 interface TaskCardProps {
   task: TaskDTO & { tag: TagDTO };
@@ -65,7 +65,10 @@ export default function TaskCard({ task }: TaskCardProps) {
               <div className="text-xl font-medium md:text-2xl">{task.name}</div>
               <div className="flex flex-wrap gap-2.5">
                 <Badge color={task.tag.color} text={task.tag.name} />
-                <ProgressBadge status={task.status} />
+                <Badge
+                  color={getProgressColor(task.status)}
+                  text={task.tag.name}
+                />
               </div>
             </div>
             <div className="text-xs text-slate-400 dark:text-slate-500 md:text-sm">

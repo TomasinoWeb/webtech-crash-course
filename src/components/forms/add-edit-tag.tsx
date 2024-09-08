@@ -48,18 +48,18 @@ export default function AddEditTagForm({ tag, onSubmit }: AddEditTagFormProps) {
         <div className="flex flex-1 flex-col gap-x-7 gap-y-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="name" required>
-              Task Name
+              Tag Name
             </Label>
             <Input
               id="name"
-              placeholder="Task Name"
+              placeholder="Tag Name"
               {...register('name', { required: true })}
             />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="description">Description</Label>
             <TextArea
-              placeholder="Task Description"
+              placeholder="Tag Description"
               {...register('description')}
             />
           </div>

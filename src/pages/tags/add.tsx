@@ -49,7 +49,7 @@ export default function AddTag() {
   return (
     <Layout>
       <div className="flex w-full flex-col gap-10">
-        <div className="text-2xl font-medium md:text-5xl">Add Task</div>
+        <div className="text-2xl font-medium md:text-5xl">Add Tag</div>
         <AddEditTagForm onSubmit={onSubmit} />
       </div>
     </Layout>

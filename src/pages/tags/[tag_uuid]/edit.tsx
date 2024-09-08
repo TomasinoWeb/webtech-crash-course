@@ -49,7 +49,7 @@ function EditTag({ tag }: EditTagProps) {
   return (
     <div className="flex w-full flex-col gap-10">
       <div className="text-2xl font-medium md:text-5xl">
-        Edit Task {tag.name}
+        Edit Tag {tag.name}
       </div>
       <AddEditTagForm tag={tag} onSubmit={onSubmit} />
     </div>

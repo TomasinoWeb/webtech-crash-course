@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
 import { Calendar, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { TagDTO, TaskDTO } from '@/hooks/dto';
+import { api } from '@/utils/client';
 import { getProgressColor } from '@/utils/getProgressColor';
 
 import Badge from '../badge';
@@ -15,6 +17,7 @@ interface TaskCardProps {
 }
 
 export default function TaskCard({ task }: TaskCardProps) {
+  const router = useRouter();
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const formattedDate = dayjs(task.due_date).format('MMM D');
@@ -23,21 +26,8 @@ export default function TaskCard({ task }: TaskCardProps) {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
-
-      console.log(
-        JSON.stringify(
-          {
-            status: 'success',
-            message: 'Task deleted successfully',
-            task_uuid: task.uuid,
-          },
-          null,
-          2,
-        ),
-      );
+      await api.delete(`/task/${task.uuid}`);
+      router.reload();
     } catch (err) {
       console.error(err);
     } finally {

@@ -5,6 +5,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import type { LoginRegisterInputs } from '@/components/forms/login-register';
 import LoginRegisterForm from '@/components/forms/login-register';
 import Label from '@/components/label';
+import { api } from '@/utils/client';
 
 import LayoutAuth from './layouts/layout-auth';
 
@@ -13,24 +14,15 @@ export default function Register() {
 
   const onSubmit: SubmitHandler<LoginRegisterInputs> = async (data) => {
     try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
+      const response = await api.post<{ success: boolean }>('/register', {
+        username: data.username,
+        password: data.password,
       });
-      console.log(
-        JSON.stringify(
-          {
-            status: 'success',
-            message: 'Login successful',
-            authData: data,
-          },
-          null,
-          2,
-        ),
-      );
+
+      if (response.data.success === true) router.push('/login');
+      else router.push('/register');
     } catch (err) {
       console.error(err);
-    } finally {
-      router.push('/');
     }
   };
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { sampleTags } from '@/const/tags';
+import { api } from '@/utils/client';
 
-import type { TagDTO } from './dto';
+import type { TagDTO, TaskDTO } from './dto';
 
 export const useTags = () => {
-  const [tags, setTags] = useState<TagDTO[]>([]);
+  const [tags, setTags] = useState<(TagDTO & { tasks: TaskDTO[] })[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -14,11 +14,10 @@ export const useTags = () => {
       setLoading(true);
       setError(null);
 
-      await new Promise((resolve) => {
-        setTimeout(resolve, 300);
-      });
-
-      setTags(sampleTags);
+      const response = await api.get<{
+        tags: (TagDTO & { tasks: TaskDTO[] })[];
+      }>('/tags');
+      setTags(response.data.tags);
     } catch (err) {
       setError((err as Error).message);
       console.error(err);

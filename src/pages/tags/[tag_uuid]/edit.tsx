@@ -7,6 +7,7 @@ import SpinnerPage from '@/components/Spinner';
 import type { TagDTO } from '@/hooks/dto';
 import { useTags } from '@/hooks/useTags';
 import Layout from '@/pages/layouts/layout';
+import { api } from '@/utils/client';
 
 interface EditTagProps {
   tag: TagDTO;
@@ -24,21 +25,7 @@ function EditTag({ tag }: EditTagProps) {
     };
 
     try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
-
-      console.log(
-        JSON.stringify(
-          {
-            status: 'success',
-            message: 'Tag edited successfully',
-            tag: newTag,
-          },
-          null,
-          2,
-        ),
-      );
+      await api.patch(`/tag/${tag.uuid}`, newTag);
     } catch (err) {
       console.error(err);
     } finally {

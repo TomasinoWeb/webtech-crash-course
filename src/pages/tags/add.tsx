@@ -4,6 +4,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import type { AddEditTagInputs } from '@/components/forms/add-edit-tag';
 import AddEditTagForm from '@/components/forms/add-edit-tag';
 import type { TagColors } from '@/hooks/dto';
+import { api } from '@/utils/client';
 
 import Layout from '../layouts/layout';
 
@@ -24,25 +25,10 @@ export default function AddTag() {
     };
 
     try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
-
-      console.log(
-        JSON.stringify(
-          {
-            status: 'success',
-            message: 'Tag added successfully',
-            tag: newTag,
-          },
-          null,
-          2,
-        ),
-      );
+      await api.post('/tag', newTag);
+      router.push('/tags');
     } catch (err) {
       console.error(err);
-    } finally {
-      router.back();
     }
   };
 

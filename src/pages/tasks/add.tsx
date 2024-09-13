@@ -6,6 +6,7 @@ import AddEditTaskForm from '@/components/forms/add-edit-task';
 import SpinnerPage from '@/components/Spinner';
 import type { TagDTO, TaskStatus } from '@/hooks/dto';
 import { useTags } from '@/hooks/useTags';
+import { api } from '@/utils/client';
 
 import Layout from '../layouts/layout';
 
@@ -26,25 +27,10 @@ function AddTaskForm({ tags }: AddTaskFormProps) {
     };
 
     try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
-
-      console.log(
-        JSON.stringify(
-          {
-            status: 'success',
-            message: 'Task added successfully',
-            task: newTask,
-          },
-          null,
-          2,
-        ),
-      );
+      await api.post('/task', newTask);
+      router.back();
     } catch (err) {
       console.error(err);
-    } finally {
-      router.back();
     }
   };
 

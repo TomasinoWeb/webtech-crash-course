@@ -8,6 +8,7 @@ import type { TagDTO, TaskDTO, TaskStatus } from '@/hooks/dto';
 import { useTags } from '@/hooks/useTags';
 import { useTasks } from '@/hooks/useTasks';
 import Layout from '@/pages/layouts/layout';
+import { api } from '@/utils/client';
 
 interface EditTaskFormProps {
   task: TaskDTO;
@@ -28,24 +29,10 @@ function EditTaskForm({ task, tags }: EditTaskFormProps) {
     };
 
     try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
-      console.log(
-        JSON.stringify(
-          {
-            status: 'success',
-            message: 'Task edited successfully',
-            task: editedTask,
-          },
-          null,
-          2,
-        ),
-      );
+      await api.patch(`/task/${task.uuid}`, editedTask);
+      router.back();
     } catch (err) {
       console.error(err);
-    } finally {
-      router.push('/');
     }
   };
 

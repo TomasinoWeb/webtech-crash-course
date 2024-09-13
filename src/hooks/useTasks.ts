@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { sampleTasks } from '@/const/tasks';
+import { api } from '@/utils/client';
 
 import type { TagDTO, TaskDTO } from './dto';
 
@@ -14,11 +14,10 @@ export const useTasks = () => {
       setLoading(true);
       setError(null);
 
-      await new Promise((resolve) => {
-        setTimeout(resolve, 300);
-      });
-
-      setTasks(sampleTasks);
+      const response = await api.get<{ tasks: (TaskDTO & { tag: TagDTO })[] }>(
+        '/tasks',
+      );
+      setTasks(response.data.tasks);
     } catch (err) {
       setError((err as Error).message);
       console.error(err);

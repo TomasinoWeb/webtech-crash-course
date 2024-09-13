@@ -89,7 +89,7 @@ export default function AddEditTaskForm({
               options={[
                 { key: 'not_yet_started', value: 'Not started' },
                 { key: 'in_progress', value: 'In Progress' },
-                { key: 'compelted', value: 'Completed' },
+                { key: 'completed', value: 'Completed' },
               ]}
               {...register('status', { required: true })}
             />

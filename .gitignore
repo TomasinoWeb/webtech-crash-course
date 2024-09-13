@@ -1,0 +1,6 @@
+node_modules
+.env
+prisma/database.sqlite*
+prisma/migrations/*
+slides/*
+yarn.lock
